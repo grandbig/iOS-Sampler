@@ -27,4 +27,10 @@ class LoginViewController: UIViewController {
         }
         return loginViewController
     }
+
+    // MARK: - IBActions
+    @IBAction func login(_ sender: UIButton) {
+        UserDefaults.standard.set(true, forKey: "isLogin")
+        AppDelegate.shared.routeViewController.route(from: self, destination: .main)
+    }
 }

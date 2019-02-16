@@ -20,7 +20,7 @@ class RootViewController: UIViewController {
 
     // MARK: - Initial Methods
     init() {
-        current = SplashViewController()
+        current = SplashViewController.make()
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -31,7 +31,17 @@ class RootViewController: UIViewController {
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        showScreen(for: current)
+
+        // ここでshowScreenメソッドを利用しない理由を下記に記載
+        // current.view.boundsのタイミングでSplashViewControllerのviewDidLoad()が呼ばれる
+        // これによりshowLoginScreen()まで処理が流れて、currentがLoginViewControllerに置き換わる
+        // showScreen(for: current)を実行すると、メモリ上ではcurrent = SplashViewControllerとなっているため、
+        // 削除された後にSplashViewController.viewだけ追加することになる
+        // これはメソッドの引数渡しが値渡しであるため
+        addChild(current)
+        current.view.bounds = view.bounds
+        view.addSubview(current.view)
+        current.didMove(toParent: self)
     }
 
     // MARK: - Router Methods
@@ -56,7 +66,6 @@ class RootViewController: UIViewController {
         replaceCurrent(to: mainViewController)
     }
 
-    // MARK: - Other Methods
     private func showScreen(for viewController: UIViewController) {
         addChild(viewController)
         viewController.view.bounds = view.bounds
