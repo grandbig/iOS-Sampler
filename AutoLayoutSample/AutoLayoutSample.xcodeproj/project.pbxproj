@@ -141,18 +141,18 @@
 		2E046AD32259915C0025CA76 /* Parts */ = {
 			isa = PBXGroup;
 			children = (
-				2E046AD4225991650025CA76 /* customCell */,
+				2E046AD4225991650025CA76 /* CustomTableViewCell */,
 			);
 			path = Parts;
 			sourceTree = "<group>";
 		};
-		2E046AD4225991650025CA76 /* customCell */ = {
+		2E046AD4225991650025CA76 /* CustomTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
 				2E046AD5225991AB0025CA76 /* CustomTableViewCell.swift */,
 				2E046AD6225991AB0025CA76 /* CustomTableViewCell.xib */,
 			);
-			path = customCell;
+			path = CustomTableViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

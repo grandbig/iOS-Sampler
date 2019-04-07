@@ -24,7 +24,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.register(UINib.init(nibName: "CustomTableViewCell", bundle: nil), forCellReuseIdentifier: "customCell")
+        tableView.register(UINib.init(nibName: "CustomTableViewCell", bundle: nil), forCellReuseIdentifier: "customTableViewCell")
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -37,7 +37,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "customTableViewCell", for: indexPath)
         
         if let customCell = cell as? CustomTableViewCell {
             customCell.titleLabel.text = labels[indexPath.row]
