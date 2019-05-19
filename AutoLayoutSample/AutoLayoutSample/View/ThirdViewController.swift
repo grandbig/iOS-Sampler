@@ -35,9 +35,18 @@ class ThirdViewController: UIViewController {
         tableView.dataSource = self
     }
 
-    // TODO: 以下、動的な対応が必要
-    // 動的にUILabelのサイズを取得して、基準値(例えば50ptなど)を超える場合は、Width Constraint: 基準値以上を付与
-    // 基準値を超えない場合は、Width Constraint: UILabelサイズを付与
+    private func drawWithRect(label: UILabel) {
+        let style = NSMutableParagraphStyle()
+        style.lineBreakMode = .byWordWrapping
+        style.alignment = NSTextAlignment.left
+        let stringAttrubute = [
+            NSAttributedString.Key.paragraphStyle: style
+        ]
+        label.text?.draw(with: CGRect(x: 0, y: 0, width: 50.0, height: label.frame.size.height),
+                    options: [.usesLineFragmentOrigin, .truncatesLastVisibleLine],
+                    attributes: stringAttrubute,
+                    context: nil)
+    }
 }
 
 extension ThirdViewController: UITableViewDelegate, UITableViewDataSource {
@@ -60,8 +69,9 @@ extension ThirdViewController: UITableViewDelegate, UITableViewDataSource {
             if rect.width <= customCell.prefixLabelMaxWidthConstraint.constant {
                 // UILabel の width の制約に、調節済みの width を設定
                 customCell.prefixLabelMinWidthConstraint.constant = rect.width
+            } else {
+                drawWithRect(label: customCell.prefixLabel)
             }
-            print("customCell.prefixLabel.intrinsicContentSize: \(customCell.prefixLabel.intrinsicContentSize)")
             
             return customCell
         }
